@@ -1,7 +1,7 @@
 ﻿ 
 namespace Business.Abstract
 {
-    public interface ICourseService
+    public interface ICourseService : IEntityService
     {
     }
 }

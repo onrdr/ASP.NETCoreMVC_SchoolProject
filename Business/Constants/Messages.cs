@@ -3,6 +3,10 @@ namespace Business.Constants
 {
     public static class Messages
     {
+        public const string StudentNumberAlreadyExists = "Student number already exists. Please change the number.";
+
+        public const string StudentAdded = "Student added successfully";
+
         public const string CourseAdded = "Course added successfully";
 
         public const string StudentRegistered = "Student registered to school successfully";

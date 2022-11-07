@@ -1,0 +1,78 @@
+﻿@model RegisterVM
+
+@{
+    ViewData["Title"] = "Register New Student";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+
+<h2 class="text-primary text-center">Register New Student</h2> 
+<form method="post" asp-controller="Admin" asp-action="Register" style="margin-left:20px">
+    <div class="row">
+        <div class="border p-3 row">
+            <div class="col-12 pb-2">
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="StudentNo"></label>
+                <input asp-for="StudentNo" class="form-control" />
+                <span asp-validation-for="StudentNo" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="Gender" class="control-label"></label>
+                <select class="form-control" asp-for="Gender" asp-items="@ViewBag.Gender"></select>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="Email"></label>
+                <input type="email" asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="BirthDay"></label>
+                <input asp-for="BirthDay" class="form-control" />
+                <span asp-validation-for="BirthDay" class="text-danger"></span>
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="City"></label>
+                <input asp-for="City" class="form-control" />
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="PhoneNumber"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+            </div>
+            <div class="mb-3 col-6">
+                <label class="control-label">Picture</label>
+                <input class="form-control" type="file" name="userPicture" />
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary mt-2" style="width:150px">Register</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@*Client Side Validation*@
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}

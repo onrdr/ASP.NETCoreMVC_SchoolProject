@@ -1,7 +1,7 @@
 ﻿ 
 namespace Business.Abstract
 {
-    public interface IExamGradeService
+    public interface IExamGradeService : IEntityService
     {
     }
 }

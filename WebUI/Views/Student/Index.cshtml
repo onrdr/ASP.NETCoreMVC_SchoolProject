@@ -1,0 +1,62 @@
+﻿@model StudentInformationVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Student/_StudentLayout.cshtml";
+}
+
+
+<h3 class="text-center">User Information</h3>
+
+<div class="row m-1">
+    <div class="col-sm-9">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>UserName</th>
+                <td>@Model.AppUser.UserName</td>
+            </tr>
+            <tr>
+                <th>Email Adress</th>
+                <td>@Model.AppUser.Email</td>
+            </tr>
+            <tr>
+                <th>Phone Number</th>
+                <td>@Model.AppUser.PhoneNumber</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                @if (Model.Student.City != null)
+                {
+                    <td>@Model.Student.City</td>
+                }
+                else
+                {
+                    <td>---</td>
+                }
+
+            </tr>
+            <tr>
+                <th>Birthday</th>
+                <td>@Model.Student.Birthday.ToShortDateString()</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>@Model.Student.Gender</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-3">
+        @if (string.IsNullOrEmpty(Model.Student.Picture))
+        {
+            <img style="border-radius: 50%; width:200px; height:200px" src="/UserPicture/Default_Icon.jpg" />
+        }
+        else
+        {
+            <img style="border-radius: 50%; width:200px; height:200px" src=" @Model.Student.Picture" />
+        }
+
+    </div>
+</div>
+
+
+

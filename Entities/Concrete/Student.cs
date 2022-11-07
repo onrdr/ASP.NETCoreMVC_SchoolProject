@@ -1,4 +1,5 @@
 ﻿using Entities.Abstract;
+using Entities.Concrete.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Concrete
@@ -20,6 +21,7 @@ namespace Entities.Concrete
         public DateTime Birthday{ get; set; }
         public int Gender{ get; set; } 
         public string? Picture { get; set; }
+        public string? City { get; set; }
         public ICollection<Course> Courses { get; set; }
         public ICollection<Teacher> Teachers { get; set; }
         public ICollection<ExamGrade> ExamGrades { get; set; }

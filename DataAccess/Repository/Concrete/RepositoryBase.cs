@@ -18,6 +18,7 @@ namespace DataAccess.Repository.Concrete
         public void Add(TEntity entity)
         {
             _dbSet.Add(entity);
+            _db.SaveChanges();
         }
 
         public void Delete(TEntity entity)
