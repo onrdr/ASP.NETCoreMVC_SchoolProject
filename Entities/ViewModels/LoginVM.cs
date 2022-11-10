@@ -4,12 +4,11 @@ namespace Entities.ViewModels
 {
     public class LoginVM
     {
-        [Display(Name = "Email Address")]
-        [Required(ErrorMessage = "Email required")]
-        [EmailAddress]
-        public string EmailAddress { get; set; }
+        [Display(Name = "Username")]
+        [Required(ErrorMessage = "Username is required")] 
+        public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Password required")]
+        [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

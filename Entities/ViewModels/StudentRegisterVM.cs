@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entities.ViewModels
 {
-    public class RegisterVM
+    public class StudentRegisterVM
     {
         [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }

@@ -1,0 +1,51 @@
+﻿@model AdminVM
+
+@{
+    ViewData["Title"] = "Register New Admin";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+
+<h2 class="text-primary text-center">Register New Admin</h2>
+
+<form style="zoom:80%;" method="post" asp-controller="Admin" asp-action="RegisterAdmin">
+    <div class="row">
+        <div class="border p-3 row">
+            <div class="col-12 pb-2">
+            </div>
+            <div class="mb-3 col-6">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>  
+            <div class="mb-3 col-6">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div> 
+            <div class="mb-3 col-6">
+                <label asp-for="Email"></label>
+                <input type="email" asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div> 
+            <div class="mb-3 col-6">
+                <label asp-for="PhoneNumber"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+            </div>
+            <div class="mb-3 col-6">
+                <label class="control-label">Picture</label>
+                <input class="form-control" type="file" name="userPicture" />
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary mt-2" style="width:150px">Register</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@*Client Side Validation*@
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}

@@ -5,6 +5,8 @@ namespace Entities.Concrete.Identity
 {
     public class AppUser : IdentityUser
     {
+        public string? Picture { get; set; }
+
         public int? StudentId { get; set; } 
         public Student Student { get; set; }
 

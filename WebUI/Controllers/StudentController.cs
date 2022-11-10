@@ -1,17 +1,18 @@
 ﻿using Business.Abstract;
-using Entities.Concrete;
 using Entities.Concrete.Identity;
 using Entities.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers
 {
+    [Authorize(Roles = "Student")]
     public class StudentController : BaseController
     {
         readonly IStudentService _studentService;
         public StudentController(IStudentService studentService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
-            : base(studentService, userManager, signInManager)
+            : base(userManager, signInManager)
         {
             _studentService = studentService;
         }
@@ -24,7 +25,15 @@ namespace WebUI.Controllers
                 Student = _studentService.GetStudentById((int)CurrentUser.StudentId)
             };
             return View(model);
-        } 
+        }
+        public IActionResult Courses()
+        { 
+            return View();
+        }
+        public IActionResult ExamResults()
+        { 
+            return View();
+        }
     }
 }
 

@@ -19,7 +19,7 @@ namespace Entities.Concrete
         public string LastName { get; set; }
         public string Email { get; set; }
         public DateTime Birthday{ get; set; }
-        public int Gender{ get; set; } 
+        public Gender Gender{ get; set; } 
         public string? Picture { get; set; }
         public string? City { get; set; }
         public ICollection<Course> Courses { get; set; }

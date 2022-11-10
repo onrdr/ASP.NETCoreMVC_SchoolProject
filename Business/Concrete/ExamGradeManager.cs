@@ -6,5 +6,9 @@ namespace Business.Concrete
     public class ExamGradeManager : IExamGradeService
     {
         IExamGradeRepository _examGradeRepository;
+        public ExamGradeManager(IExamGradeRepository examGradeRepository)
+        {
+            _examGradeRepository = examGradeRepository;
+        }
     }
 }

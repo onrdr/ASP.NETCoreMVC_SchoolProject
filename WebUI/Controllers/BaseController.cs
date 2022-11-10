@@ -10,7 +10,7 @@ namespace WebUI.Controllers
         protected UserManager<AppUser> UserManager { get; }
         protected SignInManager<AppUser> SignInManager { get; }
         protected RoleManager<AppRole> RoleManager { get; }
-        public BaseController(IEntityService entityService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager = null)
+        public BaseController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager = null)
         {
             UserManager = userManager;
             SignInManager = signInManager;

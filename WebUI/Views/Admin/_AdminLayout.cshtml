@@ -16,43 +16,42 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand">School Project</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            <div class="container"> 
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between m-2">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="btn btn-danger col-12" style="width:120px" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container" style="margin-top:10px">
+    <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <h3 class="text-center text-primary">Menu</h3>
-                <a class="btn btn-primary col-12 mt-2" asp-controller="Admin" asp-action="Index">Home</a>
+                <a class="btn btn-primary col-12" asp-controller="Admin" asp-action="Index">Home</a>
 
-                <a class="btn btn-primary col-12 mt-2" asp-controller="Home" asp-action="Logout">Logout</a>
+                <a class="btn btn-primary col-12 mt-3" asp-controller="Admin" asp-action="RegisterNewStudent">Register New Student</a>
+
+                <a class="btn btn-primary col-12 mt-3" asp-controller="Admin" asp-action="RegisterAdmin">Register New Admin</a>
+
+                <a class="btn btn-primary col-12 mt-3" asp-controller="Admin" asp-action="RegisterNewTeacher">Register New Teacher</a>
+
+                <a class="btn btn-primary col-12 mt-3" asp-action="Users" asp-controller="Admin">Members</a>
+
+                <a class="btn btn-primary col-12 mt-3" asp-action="Roles" asp-controller="Admin">Roles</a>
+
+                <a class="btn btn-danger col-12 mt-3" asp-controller="Home" asp-action="Logout">Logout</a>
             </div>
-            <div class="col-md-9" style="zoom:80%">
+            <div class="col-md-8" style="margin-left:50px">
                 <partial name="_Notification" />
                 @RenderBody()
             </div>
         </div>
-    </div>
-
-    <footer class="border-top footer text-muted" style="bottom:10px;position: fixed; width:100%;">
-        <div class="container">
-            &copy; Onur Derman - School Project - <a asp-controller="Home" asp-action="ContactMe">Contact Me</a>
-        </div>
-    </footer>
+    </div> 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

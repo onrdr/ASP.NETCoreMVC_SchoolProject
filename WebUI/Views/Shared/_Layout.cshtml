@@ -16,8 +16,8 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            <div class="container">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,16 +25,27 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between m-2">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-danger col-12" style="width:120px" asp-controller="Home" asp-action="Index">Home Page</a>
+                            <a class="btn btn-danger col-12" style="width:120px" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-danger col-12" style="width:120px" asp-controller="Admin" asp-action="Register">RegisterStudent</a>
+                            <a class="btn btn-danger col-12" style="width: 120px; margin-left:10px" asp-controller="Admin" asp-action="Index">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-danger col-12" style="width: 120px; margin-left: 10px" asp-controller="Student" asp-action="Index">Student</a>
                         </li>
                         @if (!User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item ms-auto">
-                                <a class="nav-link text-dark btn btn-success" style="width:120px" asp-controller="Home" asp-action="Login">
+                                <a class="btn btn-success col-12" style="width:120px" asp-controller="Home" asp-action="Login">
                                     <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Login
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item ms-auto">
+                                <a class="btn btn-danger" asp-controller="Home" asp-action="Logout">
+                                    <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Logout
                                 </a>
                             </li>
                         }
@@ -50,7 +61,7 @@
         </main>
     </div> 
 
-    <footer class="border-top footer text-muted" style="bottom:10px;position: fixed; width:100%;">
+    <footer class="border-top footer text-muted" style="bottom:10px; width:100%; position:fixed">
         <div class="container">
             &copy; Onur Derman - School Project - <a asp-controller="Home" asp-action="ContactMe">Contact Me</a>
         </div>

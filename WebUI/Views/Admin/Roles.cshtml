@@ -1,0 +1,50 @@
+﻿@model List<AppRole>
+@{
+    ViewData["Title"] = "Roles";
+    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+}
+
+<h3 class="text-center text-primary">Role List</h3>
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-info">
+        @TempData["message"]
+    </div>
+} 
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Id</th>
+        <th>Role Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+
+    </tr>
+    @if (Model.Count <= 0)
+    {
+        <tr>
+            <td colspan="3">No Roles Added Before !!!</td>
+        </tr>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>
+                    <form asp-action="RoleEdit" asp-route-id="@item.Id" method="get">
+                        <button class="btn btn-info" type="submit">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <form asp-action="RoleDelete" asp-route-id="@item.Id">
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+<a asp-action="RoleCreate" class="btn btn-success">Create Role</a>

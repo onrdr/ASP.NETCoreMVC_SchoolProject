@@ -1,12 +1,13 @@
-﻿@model RegisterVM
+﻿@model StudentRegisterVM
 
 @{
     ViewData["Title"] = "Register New Student";
     Layout = "~/Views/Admin/_AdminLayout.cshtml";
 }
 
-<h2 class="text-primary text-center">Register New Student</h2> 
-<form method="post" asp-controller="Admin" asp-action="Register" style="margin-left:20px">
+<h2 class="text-primary text-center">Register New Student</h2>
+
+<form style="zoom:80%" method="post" asp-controller="Admin" asp-action="Register">
     <div class="row">
         <div class="border p-3 row">
             <div class="col-12 pb-2">
