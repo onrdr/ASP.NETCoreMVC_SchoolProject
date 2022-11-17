@@ -13,9 +13,10 @@ namespace DataAccess.Repository.Concrete
             _db = db;
         }
 
-        public void Update(Student student)
+        public async void Update(Student student)
         {
             _db.Update(student);
+            await _db.SaveChangesAsync();
         }
 
         public IEnumerable<Course> GetStudentCourseList(int id)

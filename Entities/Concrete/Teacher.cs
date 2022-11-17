@@ -1,4 +1,5 @@
 ﻿using Entities.Abstract;
+using Entities.Concrete.Enums;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,8 +18,10 @@ namespace Entities.Concrete
         public string LastName { get; set; }
         public string Email { get; set; }
         public DateTime Birthday { get; set; }
-        public int Gender { get; set; }  
+        public Gender Gender { get; set; }
+        public string PhoneNumber { get; set; }
         public string? Picture { get; set; }
+        public string? City { get; set; }
         public int CourseId { get; set; }
 
         [ValidateNever]

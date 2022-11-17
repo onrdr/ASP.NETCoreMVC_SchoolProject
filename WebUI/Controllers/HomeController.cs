@@ -1,4 +1,5 @@
-﻿using Entities.Concrete.Identity;
+﻿using AutoMapper;
+using Entities.Concrete.Identity;
 using Entities.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,8 +8,8 @@ namespace WebUI.Controllers
 {
     public class HomeController : BaseController
     {
-        public HomeController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
-            : base(userManager, signInManager)
+        public HomeController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper)
+            : base(userManager, signInManager, mapper)
         {
         }
         public IActionResult Index()
@@ -57,7 +58,7 @@ namespace WebUI.Controllers
             var returnUrl = (string)TempData["ReturnUrl".ToString()];
 
             if (string.IsNullOrEmpty(returnUrl)) 
-                return RedirectToAction("Index", "Member"); 
+                return RedirectToAction("Index", "Member", user); 
 
             return Redirect($"{returnUrl}"); 
         }

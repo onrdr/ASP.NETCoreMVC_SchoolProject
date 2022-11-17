@@ -7,6 +7,10 @@ namespace Business.Constants
 
         public const string StudentAdded = "Student added successfully";
 
+        public const string StudentUpdated = "Student updated successfully";
+
+        public const string StudentDeleted = "Student deleted successfully";
+
         public const string CourseAdded = "Course added successfully";
 
         public const string StudentRegistered = "Student registered to school successfully";

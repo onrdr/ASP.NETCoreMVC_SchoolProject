@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using AutoMapper;
+using Business.Abstract;
 using Entities.Concrete.Identity;
 using Entities.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -7,12 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers
 {
-    [Authorize(Roles = "Student")]
+    [Authorize(Roles = "Student, Admin")]
     public class StudentController : BaseController
     {
         readonly IStudentService _studentService;
-        public StudentController(IStudentService studentService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
-            : base(userManager, signInManager)
+        public StudentController(IStudentService studentService, UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager, IMapper mapper)
+            : base(userManager, signInManager, mapper)
         {
             _studentService = studentService;
         }
@@ -27,12 +29,18 @@ namespace WebUI.Controllers
             return View(model);
         }
         public IActionResult Courses()
-        { 
+        {
             return View();
         }
         public IActionResult ExamResults()
-        { 
+        {
             return View();
+        }
+         
+        public IActionResult Details(int id)
+        {
+            var student = _studentService.GetStudentById(id);
+            return View(student);
         }
     }
 }

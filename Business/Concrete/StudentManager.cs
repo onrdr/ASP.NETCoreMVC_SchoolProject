@@ -18,7 +18,7 @@ namespace Business.Concrete
 
         public IResult Add(Student student)
         {
-            var result = BusinessRules.Run(CheckIfStudentNoExists(student.StudentNo));
+            var result = BusinessRules.Run(CheckIfStudentNnumberExists(student.StudentNo));
 
             if (result is not null)
             {
@@ -29,12 +29,14 @@ namespace Business.Concrete
         }
         public IResult Update(Student student)
         {
-            throw new NotImplementedException();
+            _studentRepository.Update(student);
+            return new SuccessResult(Messages.StudentUpdated);
         }
 
         public IResult Delete(Student student)
         {
-            throw new NotImplementedException();
+            _studentRepository.Delete(student);
+            return new SuccessResult(Messages.StudentDeleted);
         }
 
         public int GetStudentIdByStudentNo(string studentNo)
@@ -48,9 +50,9 @@ namespace Business.Concrete
             return _studentRepository.GetFirstOrDefault(s => s.Id == studentId);
         }
 
-        public IDataResult<List<Student>> GetAllStudents()
+        public List<Student> GetAllStudents()
         {
-            throw new NotImplementedException();
+            return _studentRepository.GetAll().ToList();
         }
 
         public IDataResult<List<Student>> GetAllByCourseId(int id)
@@ -70,7 +72,7 @@ namespace Business.Concrete
 
 
         #region Functions
-        private IResult CheckIfStudentNoExists(string studentNo)
+        private IResult CheckIfStudentNnumberExists(string studentNo)
         {
             var result = _studentRepository.GetAll(s => s.StudentNo == studentNo).Any();
 

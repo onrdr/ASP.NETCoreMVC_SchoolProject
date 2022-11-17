@@ -8,6 +8,13 @@
 
 <h3 class="text-center text-primary">Student Information</h3>
 
+@if (TempData["update-status"] is not null)
+{
+    <div class="alert alert-info">
+        <span>@TempData["update-status"]</span>
+    </div>
+}
+
 <div class="row m-1">
     <div class="col-sm-9">
         <table class="table table-bordered table-striped">

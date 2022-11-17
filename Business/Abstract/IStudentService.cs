@@ -8,7 +8,7 @@ namespace Business.Abstract
         IResult Add(Student product);
         IResult Delete(Student product);
         IResult Update(Student product); 
-        IDataResult<List<Student>> GetAllStudents();
+        List<Student> GetAllStudents();
         IDataResult<List<Student>> GetAllByCourseId(int id);
         IDataResult<List<Student>> GetAllByTeacherId(int id);
         IDataResult<List<Student>> GetAllByExamGradeId(int id);

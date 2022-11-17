@@ -23,6 +23,11 @@
                         <li class="nav-item">
                             <a class="btn btn-danger col-12" style="width:120px" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        <li class="nav-item ms-auto">
+                            <a class="btn btn-danger" asp-controller="Home" asp-action="Logout">
+                                <i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Logout
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -38,7 +43,7 @@
 
                 <a class="btn btn-warning col-12 mt-3" asp-controller="Student" asp-action="ExamResults">Exam Results</a>
 
-                <a class="btn btn-danger col-12 mt-3" asp-controller="Home" asp-action="Logout">Logout</a>
+                <a class="btn btn-warning col-12 mt-3" asp-controller="Member" asp-action="Edit">Account Settings</a> 
             </div>
             <div class="col-md-8" style="margin-left:50px">
                 <partial name="_Notification" />

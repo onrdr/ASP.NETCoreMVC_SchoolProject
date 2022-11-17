@@ -1,13 +1,32 @@
 ﻿@model MemberVM
 
 @{
-    ViewData["Title"] = "Register New Admin";
-    Layout = "~/Views/Admin/_AdminLayout.cshtml";
+    ViewData["Title"] = "Update Info";
+    @if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Views/Admin/_AdminLayout.cshtml";
+    }
+    else if (User.IsInRole("Student"))
+    {
+        Layout = "~/Views/Student/_StudentLayout.cshtml";
+    }
+    else if (User.IsInRole("Teacher"))
+    {
+        Layout = "~/Views/Teacher/_TeacherLayout.cshtml";
+    }
 }
 
-<h2 class="text-primary text-center">Register New Admin</h2>
+<h2 class="text-primary text-center">Update Information</h2>
 
-<form style="zoom:80%;" method="post" asp-controller="Admin" asp-action="RegisterAdmin">
+@if (TempData["update-status"] is not null)
+{
+    <div class="alert alert-info">
+        <span>@TempData["update-status"]</span>
+    </div>
+}
+
+
+<form style="zoom:80%" method="post" asp-controller="Member" asp-action="Edit">
     <div class="row">
         <div class="border p-3 row">
             <div class="col-12 pb-2">
@@ -16,17 +35,12 @@
                 <label asp-for="UserName"></label>
                 <input asp-for="UserName" class="form-control" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
-            </div>  
-            <div class="mb-3 col-6">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div> 
+            </div>
             <div class="mb-3 col-6">
                 <label asp-for="Email"></label>
                 <input type="email" asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
-            </div> 
+            </div>
             <div class="mb-3 col-6">
                 <label asp-for="PhoneNumber"></label>
                 <input asp-for="PhoneNumber" class="form-control" />
@@ -36,7 +50,8 @@
                 <input class="form-control" type="file" name="userPicture" />
             </div>
             <div class="col-12">
-                <button type="submit" class="btn btn-primary mt-2" style="width:150px">Register</button>
+                <button type="submit" class="btn btn-primary mt-2" style="width:250px">Update</button>
+                <a class="btn btn-outline-danger mt-2" style="width:250px;margin-left:20px" asp-controller="Member" asp-action="PasswordChange" >Change Password</a>
             </div>
         </div>
     </div>

@@ -24,6 +24,7 @@ namespace DataAccess.Repository.Concrete
         public void Delete(TEntity entity)
         {
             _dbSet.Remove(entity);
+            _db.SaveChanges();
         }
 
         public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>>filter = null, string? includeProperties = null)

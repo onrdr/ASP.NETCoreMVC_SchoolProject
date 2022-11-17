@@ -1,7 +1,7 @@
 ﻿ 
 namespace Entities.Abstract
 {
-    public class IViewModel
+    public interface IViewModel
     {
     }
 }

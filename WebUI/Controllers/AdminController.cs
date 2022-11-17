@@ -1,4 +1,5 @@
-﻿using Business.Abstract; 
+﻿using AutoMapper;
+using Business.Abstract;
 using Entities.Concrete;
 using Entities.Concrete.Enums;
 using Entities.Concrete.Identity;
@@ -8,26 +9,35 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Packaging.Signing;
 
 namespace WebUI.Controllers
 {
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : BaseController
     {
         readonly IStudentService _studentService;
-        readonly ITeacherService _teacherService;        
-        public AdminController(IStudentService studentService, ITeacherService teacherService, 
-            UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, RoleManager<AppRole> roleManager)
-            : base(userManager, signInManager, roleManager)
+        readonly ITeacherService _teacherService;
+        public AdminController(IStudentService studentService, ITeacherService teacherService,
+            UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper, RoleManager<AppRole> roleManager)
+            : base(userManager, signInManager, mapper, roleManager)
         {
             _studentService = studentService;
             _teacherService = teacherService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string id)
         {
-            AppUser user = CurrentUser;
-            AdminVM admin = new()
+            AppUser user;
+            if (id is not null)
+            {
+                user = await UserManager.FindByIdAsync(id);
+            }
+            else
+            {
+                user = CurrentUser;
+            }
+            MemberVM admin = new()
             {
                 UserName = user.UserName,
                 Email = user.Email,
@@ -48,27 +58,30 @@ namespace WebUI.Controllers
         public async Task<IActionResult> RegisterNewStudent(StudentRegisterVM model)
         {
             if (ModelState.IsValid)
-            {
+            {               
                 Student student = new()
                 {
                     StudentNo = model.StudentNo,
                     Name = model.Name,
                     LastName = model.LastName,
-                    Birthday = model.BirthDay,
+                    Email = model.Email,
+                    Birthday = model.Birthday,
                     Gender = model.Gender,
-                    Email = model.Email
-                };
+                    PhoneNumber = model.PhoneNumber,
+                    City = model.City,
+                }; 
                 var studentResult = _studentService.Add(student);
 
                 if (studentResult.Success)
                 {
                     AppUser user = new()
                     {
-                        StudentId = _studentService.GetStudentIdByStudentNo(student.StudentNo),
+                        StudentId = student.Id,
                         UserName = model.UserName,
                         PasswordHash = model.Password,
                         Email = model.Email,
-                        PhoneNumber = model.PhoneNumber
+                        PhoneNumber = model.PhoneNumber,
+                        Picture = model.Picture,
                     };
                     var result2 = await UserManager.CreateAsync(user, model.Password);
                     if (result2.Succeeded)
@@ -82,6 +95,74 @@ namespace WebUI.Controllers
         }
         #endregion
 
+        #region Edit Student Information 
+        public async Task<IActionResult> EditStudentInfo(string userId)
+        {
+            var user = await UserManager.FindByIdAsync(userId);
+            var student = _studentService.GetStudentById((int)user.StudentId);
+            StudentEditVM studentVM = new()
+            {
+                Name = student.Name,
+                LastName = student.LastName,
+                StudentNo = student.StudentNo,
+                Birthday = student.Birthday,
+                Gender = student.Gender,
+                City = student.City,
+            };
+
+            ViewBag.Gender = new SelectList(Enum.GetNames(typeof(Gender)));
+            ViewBag.userId = userId;
+            return View(studentVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditStudentInfo(StudentEditVM model, IFormFile? userPicture, string userId)
+        {
+            ViewBag.Gender = new SelectList(Enum.GetNames(typeof(Gender)));
+            if (ModelState.IsValid)
+            { 
+                var user = await UserManager.FindByIdAsync(userId);
+                var student = _studentService.GetStudentById((int)user.StudentId);
+
+                student.Name = model.Name;
+                student.LastName = model.LastName;
+                student.StudentNo = model.StudentNo;
+                student.Birthday = model.Birthday;
+                student.Gender = model.Gender;
+                student.City = model.City; 
+
+                if (userPicture != null && userPicture.Length > 0)
+                {
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(userPicture.FileName);
+                    var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/UserPicture", fileName);
+
+                    using var stream = new FileStream(path, FileMode.Create);
+                    await userPicture.CopyToAsync(stream);
+                    user.Picture = "/UserPicture/" + fileName;
+                    student.Picture = user.Picture;
+                }
+
+                var userResult = await UserManager.UpdateAsync(user);
+                var studentResult =  _studentService.Update(student);
+
+                if (userResult.Succeeded && studentResult.Success) 
+                    TempData["status"] = "Updated Successfully"; 
+
+                return RedirectToAction("Users");
+            }
+
+            return View(model);
+        }
+        #endregion 
+
+        #region Student List
+        public IActionResult StudentList()
+        {
+            var list = _studentService.GetAllStudents();
+            return View(list);
+        }
+        #endregion
+
         #region Admin Registration
         public IActionResult RegisterAdmin()
         {
@@ -89,7 +170,7 @@ namespace WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterAdmin(AdminVM model)
+        public async Task<IActionResult> RegisterAdmin(MemberVM model)
         {
             if (ModelState.IsValid)
             {
@@ -151,7 +232,7 @@ namespace WebUI.Controllers
 
             RoleVM roleVM = new()
             {
-                Id= id,
+                Id = id,
                 Name = role.Name,
             };
             return View(roleVM);
@@ -243,6 +324,21 @@ namespace WebUI.Controllers
         public IActionResult Users()
         {
             return View(UserManager.Users.ToList());
+        }
+        #endregion       }
+
+        #region Member Details
+        public async Task<IActionResult> Details(string id)
+        {
+            AppUser user = await UserManager.FindByIdAsync(id);
+            MemberVM admin = new()
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Picture = user.Picture,
+            };
+            return View(admin);
         }
         #endregion
     }

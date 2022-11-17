@@ -1,4 +1,4 @@
-﻿@model AdminVM
+﻿@model MemberVM
 
 @{
     ViewData["Title"] = "Admin Information";
@@ -7,13 +7,20 @@
 
 <h3 class="text-center text-primary">Admin Information</h3>
 
+@if (TempData["update-status"] is not null)
+{
+    <div class="alert alert-info">
+        <span>@TempData["update-status"]</span>
+    </div>
+}
+
 <div class="row">
     <div class="col-sm-9">
         <table class="table table-bordered table-striped">
             <tr>
                 <th>User Name</th>
                 <td>@Model.UserName</td>
-            </tr> 
+            </tr>
             <tr>
                 <th>Email Address</th>
                 <td>@Model.Email</td>
@@ -21,7 +28,7 @@
             <tr>
                 <th>Phone Number</th>
                 <td>@Model.PhoneNumber</td>
-            </tr>  
+            </tr>
         </table>
     </div>
     <div class="col-sm-3">

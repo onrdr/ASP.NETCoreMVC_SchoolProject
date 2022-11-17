@@ -1,7 +1,7 @@
 ﻿ 
 namespace Entities.ViewModels
 {
-    public class AdminVM
+    public class MemberVM
     {
         public string UserName { get; set; }
         public string Password { get; set; }

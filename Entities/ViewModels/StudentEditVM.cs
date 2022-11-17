@@ -1,11 +1,13 @@
-﻿using Entities.Abstract;
+﻿
+using Entities.Abstract;
 using Entities.Concrete.Enums;
-using System.ComponentModel.DataAnnotations; 
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entities.ViewModels
 {
-    public class StudentRegisterVM : PersonRegisterVM
-    {
+    public class StudentEditVM : PersonEditVM
+    { 
         [Required(ErrorMessage = "Student Number is required")]
         public string StudentNo { get; set; } 
     }
